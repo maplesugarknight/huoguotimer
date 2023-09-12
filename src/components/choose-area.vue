@@ -75,6 +75,7 @@ const addFood = (food: Food) => {
   .title {
     margin-right: 10px;
     font-weight: 600;
+    min-width:28px;
   }
 
   .n-button {
