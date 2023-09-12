@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useFoodStoreHook } from "../store/modules/foods"
 import { Food } from "../utils/food.ts"
 import { NButton, NGradientText } from "naive-ui";
@@ -26,17 +26,19 @@ const removeFood = (food: Food) => {
     nowList.value = useFoodStore.nowFoodList
 }
 
-nowList.value = useFoodStore.nowFoodList
+watch(() => useFoodStore.nowFoodList, () => {
+    nowList.value = useFoodStore.nowFoodList
+},{immediate:true})
 
-setInterval(()=>{
-    nowList.value.forEach(e=>{
-        if(e.countdown){
+setInterval(() => {
+    nowList.value.forEach(e => {
+        if (e.countdown) {
             e.countdown--
         }
     })
-},1000)
+}, 1000)
 
-const clear = () =>{
+const clear = () => {
     nowList.value = []
     useFoodStore.nowFoodList = []
 }
@@ -65,7 +67,7 @@ const clear = () =>{
     }
 }
 
-.tip{
+.tip {
     margin-right: 15px;
 }
 </style>
